@@ -4,7 +4,7 @@ Forked from [follow-redirects](https://github.com/follow-redirects/follow-redire
 
 Drop-in replacement for Node's `http` and `https` modules that conditionally follows redirects.
 
-`follow-redirects` provides [request](https://nodejs.org/api/http.html#http_http_request_options_callback) and [get](https://nodejs.org/api/http.html#http_http_get_options_callback)
+`conditionally-follow-redirects` provides [request](https://nodejs.org/api/http.html#http_http_request_options_callback) and [get](https://nodejs.org/api/http.html#http_http_get_options_callback)
  methods that behave identically to those found on the native [http](https://nodejs.org/api/http.html#http_http_request_options_callback) and [https](https://nodejs.org/api/https.html#https_https_request_options_callback)
  modules, with the exception that they will seamlessly follow redirects.
 
@@ -36,7 +36,7 @@ request.end();
 
 ## Options
 ### Global options
-Global options are set directly on the `follow-redirects` module:
+Global options are set directly on the `conditionally-follow-redirects` module:
 
 ```javascript
 const followRedirects = require('conditionally-follow-redirects');
@@ -129,6 +129,6 @@ Pull Requests are always welcome. Please [file an issue](https://github.com/bill
 
 ## Debug Logging
 
-`follow-redirects` uses the excellent [debug](https://www.npmjs.com/package/debug) for logging. To turn on logging
+`conditionally-follow-redirects` uses the excellent [debug](https://www.npmjs.com/package/debug) for logging. To turn on logging
  set the environment variable `DEBUG=conditionally-follow-redirects` for debug output from just this module. When running the test
  suite it is sometimes advantageous to set `DEBUG=*` to see output from the express server as well.
