@@ -4,7 +4,7 @@ module.exports = function () {
   if (!debug) {
     try {
       /* eslint global-require: off */
-      debug = require("debug")("follow-redirects");
+      debug = require("debug")("conditionally-follow-redirects");
     }
     catch (error) { /* */ }
     if (typeof debug !== "function") {

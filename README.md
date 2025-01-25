@@ -1,19 +1,15 @@
-## Follow Redirects
+## Conditionally Follow Redirects
 
-Drop-in replacement for Node's `http` and `https` modules that automatically follows redirects.
+Forked from [follow-redirects](https://github.com/follow-redirects/follow-redirects)
 
-[![npm version](https://img.shields.io/npm/v/follow-redirects.svg)](https://www.npmjs.com/package/follow-redirects)
-[![Build Status](https://github.com/follow-redirects/follow-redirects/workflows/CI/badge.svg)](https://github.com/follow-redirects/follow-redirects/actions)
-[![Coverage Status](https://coveralls.io/repos/follow-redirects/follow-redirects/badge.svg?branch=master)](https://coveralls.io/r/follow-redirects/follow-redirects?branch=master)
-[![npm downloads](https://img.shields.io/npm/dm/follow-redirects.svg)](https://www.npmjs.com/package/follow-redirects)
-[![Sponsor on GitHub](https://img.shields.io/static/v1?label=Sponsor&message=%F0%9F%92%96&logo=GitHub)](https://github.com/sponsors/RubenVerborgh)
+Drop-in replacement for Node's `http` and `https` modules that conditionally follows redirects.
 
 `follow-redirects` provides [request](https://nodejs.org/api/http.html#http_http_request_options_callback) and [get](https://nodejs.org/api/http.html#http_http_get_options_callback)
  methods that behave identically to those found on the native [http](https://nodejs.org/api/http.html#http_http_request_options_callback) and [https](https://nodejs.org/api/https.html#https_https_request_options_callback)
  modules, with the exception that they will seamlessly follow redirects.
 
 ```javascript
-const { http, https } = require('follow-redirects');
+const { http, https } = require('conditionally-follow-redirects');
 
 http.get('http://bit.ly/900913', response => {
   response.on('data', chunk => {
@@ -43,7 +39,7 @@ request.end();
 Global options are set directly on the `follow-redirects` module:
 
 ```javascript
-const followRedirects = require('follow-redirects');
+const followRedirects = require('conditionally-follow-redirects');
 followRedirects.maxRedirects = 10;
 followRedirects.maxBodyLength = 20 * 1024 * 1024; // 20 MB
 ```
@@ -59,7 +55,7 @@ Per-request options are set by passing an `options` object:
 
 ```javascript
 const url = require('url');
-const { http, https } = require('follow-redirects');
+const { http, https } = require('conditionally-follow-redirects');
 
 const options = url.parse('http://bit.ly/900913');
 options.maxRedirects = 10;
@@ -117,7 +113,7 @@ To enable features such as caching and/or intermediate request tracking,
 you might instead want to wrap `follow-redirects` around custom protocol implementations:
 
 ```javascript
-const { http, https } = require('follow-redirects').wrap({
+const { http, https } = require('conditionally-follow-redirects').wrap({
   http: require('your-custom-http'),
   https: require('your-custom-https'),
 });
@@ -125,44 +121,14 @@ const { http, https } = require('follow-redirects').wrap({
 
 Such custom protocols only need an implementation of the `request` method.
 
-## Browser Usage
-
-Due to the way the browser works,
-the `http` and `https` browser equivalents perform redirects by default.
-
-By requiring `follow-redirects` this way:
-```javascript
-const http = require('follow-redirects/http');
-const https = require('follow-redirects/https');
-```
-you can easily tell webpack and friends to replace
-`follow-redirect` by the built-in versions:
-
-```json
-{
-  "follow-redirects/http"  : "http",
-  "follow-redirects/https" : "https"
-}
-```
-
 ## Contributing
 
-Pull Requests are always welcome. Please [file an issue](https://github.com/follow-redirects/follow-redirects/issues)
+Pull Requests are always welcome. Please [file an issue](https://github.com/billyjs/conditionally-follow-redirects/issues)
  detailing your proposal before you invest your valuable time. Additional features and bug fixes should be accompanied
  by tests. You can run the test suite locally with a simple `npm test` command.
 
 ## Debug Logging
 
 `follow-redirects` uses the excellent [debug](https://www.npmjs.com/package/debug) for logging. To turn on logging
- set the environment variable `DEBUG=follow-redirects` for debug output from just this module. When running the test
+ set the environment variable `DEBUG=conditionally-follow-redirects` for debug output from just this module. When running the test
  suite it is sometimes advantageous to set `DEBUG=*` to see output from the express server as well.
-
-## Authors
-
-- [Ruben Verborgh](https://ruben.verborgh.org/)
-- [Olivier Lalonde](mailto:olalonde@gmail.com)
-- [James Talmage](mailto:james@talmage.io)
-
-## License
-
-[MIT License](https://github.com/follow-redirects/follow-redirects/blob/master/LICENSE)
