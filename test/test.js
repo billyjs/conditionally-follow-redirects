@@ -2156,7 +2156,7 @@ describe("follow-redirects", function () {
     });
   });
 
-  describe('conditionally redirect', function () {
+  describe("conditionally redirect", function () {
     it("does not follow redirects", function () {
       app.get("/a", redirectsTo("/b"));
 
@@ -2174,12 +2174,12 @@ describe("follow-redirects", function () {
                 url: "http://localhost:3600/a",
                 method: "GET",
                 headers: {
-                  Host: 'localhost:3600'
-                }
-              })
+                  Host: "localhost:3600",
+                },
+              });
               return false;
-            }
-          }
+            },
+          };
           http.get(options, concatString(resolve, reject)).on("error", reject);
         }))
         .then(function (res) {
@@ -2188,7 +2188,7 @@ describe("follow-redirects", function () {
           assert.equal(res.headers.location, "/b");
           assert.equal(res.responseUrl, "http://localhost:3600/a");
         });
-    })
+    });
 
     it("follows redirects to an allowed location", function () {
       app.post("/a", redirectsTo(308, "http://localhost:3600/b"));
@@ -2201,10 +2201,10 @@ describe("follow-redirects", function () {
             port: 3600,
             path: "/a",
             method: "POST",
-            conditionallyRedirect: function (response, _request) {
+            conditionallyRedirect: function (response) {
               return response.headers.location.startsWith("http://localhost:3600/");
-            }
-          }
+            },
+          };
           http.get(options, concatString(resolve, reject)).on("error", reject);
         }))
         .then(function (res) {
@@ -2213,7 +2213,7 @@ describe("follow-redirects", function () {
           assert.equal(res.headers.location, "http://example.com/c");
           assert.equal(res.responseUrl, "http://localhost:3600/b");
         });
-    })
+    });
   });
 
   describe("change request options before redirects", function () {

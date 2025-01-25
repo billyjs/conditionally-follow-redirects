@@ -33,8 +33,8 @@ function concatJson(resolve, reject) {
 function concatString(resolve, reject) {
   return function (res) {
     res.pipe(concat({ encoding: "string" }, function (string) {
-        res.body = string;
-        resolve(res);
+      res.body = string;
+      resolve(res);
     })).on("error", reject);
   };
 }

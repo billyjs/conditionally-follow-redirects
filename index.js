@@ -322,7 +322,7 @@ RedirectableRequest.prototype._emitResponse = function (response) {
 
   // Clean up
   this._requestBodyBuffers = [];
-}
+};
 
 
 // Executes the next native request (initial or redirect)
@@ -421,22 +421,20 @@ RedirectableRequest.prototype._processResponse = function (response) {
 
   // Evaluate the conditionallyRedirect callback
   if (isFunction(conditionallyRedirect)) {
-    var responseDetails = {
+    if (!conditionallyRedirect({
       headers: response.headers,
       statusCode: statusCode,
-    };
-    var requestDetails = {
+    }, {
       url: this._currentUrl,
       method: this._options.method,
       headers: Object.assign({
         Host: response.req.getHeader("host"),
       }, this._options.headers),
-    };
-    if (!conditionallyRedirect(responseDetails, requestDetails)) {
+    })) {
       this._emitResponse(response);
       return;
     }
-  }  
+  }
 
   // The response is a redirect, so abort the current request
   destroyRequest(this._currentRequest);
